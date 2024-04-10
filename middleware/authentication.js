@@ -26,7 +26,10 @@ const authenticateToken = (req, res, next) => {
             return res.status(403).json({message: "Invalid token"});
         }
 
-       
+        // Perform access control check 
+        if ((req.method === "DELETE" || req.method === "PUT") && decoded.patientId !== req.params.id){
+            return res.status(403).json({message: "Unauthorized access"});
+        }
 
         // store the deoded token data 
         req.user = decoded;

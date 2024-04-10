@@ -161,15 +161,7 @@ const updatePatient = asyncHandler(async (req, res) => {
 const deletePatient = asyncHandler (async (req, res) => {
     
     
-    try {
-        //verify token
-        const  token = req.headers.authorization.split(" ")[1];
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
-        //Ensure user has permission to delete the patient profile
-        if (decoded.patientId !== req.params.id){
-            throw new Error ("User dont have permission to delete other patient profile");
-        }
+    
 
         //find patient by id
     const patient = await Patient.findById(req.params.id);
@@ -185,11 +177,7 @@ const deletePatient = asyncHandler (async (req, res) => {
 
     //Send a succes message 
     res.status(200).json({message: "Patient profile deleted succesfully"});
-    } catch (err){
-        //Handle authentication errors
-        res.status(401).json({message: "Unauthorized access"});
-
-    }
+     
 
  
 });

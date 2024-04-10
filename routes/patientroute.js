@@ -29,7 +29,6 @@ router.get("/:id",  asyncHandler(getPatientById));
 router.put("/:id",authenticateToken, asyncHandler(updatePatient));
 
 //Delete patient by authentication
-router.use(authenticateToken)
 router.delete("/:id", authenticateToken, asyncHandler(deletePatient));
 
 module.exports = router;
